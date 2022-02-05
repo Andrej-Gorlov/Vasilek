@@ -1,0 +1,18 @@
+﻿@model Vasilek.Web.Models.VM.HomeVM
+
+
+<div class="container pt-5">
+
+    <div class="text-center">
+
+        @foreach (var item in Model.ListCategory)
+        {
+            <div class="avd_div pb-5">
+                <a asp-action="CategoryVM" asp-route-category="@item" class="bucn_3_4r">@item</a>
+            </div>
+        }
+
+    </div>
+
+</div>
+

@@ -1,0 +1,17 @@
+/.git
+/.vs
+*.user
+*.Development.json
+*bin
+*obj
+*Properties
+*Migrations
+/VasilekFlowers.sln
+/Vasilek.Web/Services
+/Vasilek.Web/Vasilek.Web.csproj
+/Vasilek.Services.ShoppingCart/Vasilek.Services.ShoppingCart.csproj
+/Vasilek.Services.ProductAPI/Vasilek.Services.ProductAPI.csproj
+/Vasilek.Services.Identity/keys
+/Vasilek.Services.Identity/tempkey.jwk
+/Vasilek.Services.Identity/Vasilek.Services.Identity.csproj
+

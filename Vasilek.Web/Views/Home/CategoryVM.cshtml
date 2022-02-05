@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProductDtoBase>
+
+    <form>
+
+        <div class="container row">
+
+            @foreach (var product in Model)
+            {
+                <div class="col-4 ">
+                    <div class="p-0 my-3 border">
+                        <div class="card" >
+                            <img src="@product.ImageUrl" class="card-img-top">
+                            <div class="card-body">
+                                <h3 class="text-center card-title text-primary">@product.Name</h3>
+                                <span class="badge badge-light mb-2 ">@product.CategoryName</span>
+                                <p class="text-center card-text">@Html.Raw(product.Description)</p>
+                               
+                                <div class="row">
+                                    <div class="text-center">
+                                        <span style="font-size:23px;">@string.Format("{0:c}", product.Price)</span>
+                                    </div>
+                                    <div class="avd_div">
+                                        <a asp-action="Details" asp-route-productId="@product.ProductId"
+                                           class="bucn_3_4r"> Подробности </a>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </form>
+
+
