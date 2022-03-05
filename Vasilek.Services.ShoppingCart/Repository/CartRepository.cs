@@ -40,8 +40,6 @@ namespace Vasilek.Services.ShoppingCart.Repository
         public async Task<CartDto> CreateUpdateCart(CartDto cartDto)
         {
             Cart cart = _mapper.Map<Cart>(cartDto);
-
-            //check if product exists in database, if not create it!
             var prodInDb = await _db.Products
                 .FirstOrDefaultAsync(x => x.ProductId == cartDto.CartDetails.FirstOrDefault()
                 .ProductId);

@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Vasilek.Services.ProductAPI.Models;
-using Vasilek.Services.ProductAPI.Models.Dto;
+using ProductAPI.Domain.Entity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Vasilek.Services.ProductAPI.DbContexts
+namespace ProductAPI.DAL
 {
-    public class ApplicationDbContext:DbContext   
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }

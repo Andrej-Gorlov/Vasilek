@@ -1,105 +1,51 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Vasilek.Services.ProductAPI.Models;
-using Vasilek.Services.ProductAPI.Models.Dto;
-using Vasilek.Services.ProductAPI.Repository;
+using ProductAPI.Domain.Entity.DTO;
+using ProductAPI.Service.Interfaces;
 
 namespace Vasilek.Services.ProductAPI.Controllers
 {
     [Route("api/product")]
     public class ProductAPIController : ControllerBase
     {
-        protected ResponseDto? _response;
-        private IProductRepository? _productRepository;
-        public ProductAPIController(IProductRepository productRepository)
+        private readonly IProductService _productService;
+        public ProductAPIController(IProductService productService)
         {
-            _productRepository = productRepository;
-            this._response = new ResponseDto();
+          _productService = productService;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<object> Get()
-        {
-            try
-            {
-                IEnumerable<ProductDto> productDtos=await _productRepository.GetProducts();
-                _response.Result = productDtos;
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string> { ex.ToString() };
-            }
-            return _response;
-        }
+        public async Task<object> Get()=>await _productService.GetProducts();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<object> Get(int id)
-        {
-            try
-            {
-                ProductDto productDto = await _productRepository.GetProductsById(id);
-                _response.Result = productDto;
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string> { ex.ToString() };
-            }
-            return _response;
-        }
+        public async Task<object> Get(int id)=> await _productService.GetProductById(id);
+
 
         [HttpPost]
         [Authorize]
-        public async Task<object> Post([FromBody] ProductDto productDto)
-        {
-            try
-            {
-                ProductDto model = await _productRepository.CreateUpdateProduct(productDto);
-                _response.Result = model;
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string> { ex.ToString() };
-            }
-            return _response;
-        }
+        public async Task<object> Post([FromBody] ProductDto productDto)=>
+            await _productService.CreateUpdateProduct(productDto);
+
 
         [HttpPut]
         [Authorize]
-        public async Task<object> Put([FromBody] ProductDto productDto)
-        {
-            try
-            {
-                ProductDto model = await _productRepository.CreateUpdateProduct(productDto);
-                _response.Result = model;
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string> { ex.ToString() };
-            }
-            return _response;
-        }
+        public async Task<object> Put([FromBody] ProductDto productDto) => 
+            await _productService.CreateUpdateProduct(productDto);
+
 
         [HttpDelete]
         [Authorize(Roles ="Admin")]
         [Route("{id}")]
-        public async Task<object> Delete(int id)
-        {
-            try
-            {
-                bool IsSuccess = await _productRepository.DeleteProduct(id);
-                _response.Result = IsSuccess;
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string> { ex.ToString() };
-            }
-            return _response;
-        }
+        public async Task<object> Delete(int id)=>await _productService.DeleteProduct(id);
+
     }
 }

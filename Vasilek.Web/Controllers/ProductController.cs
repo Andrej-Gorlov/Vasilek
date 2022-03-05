@@ -34,7 +34,7 @@ namespace Vasilek.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProductCreate(ProductDtoBase model)
         {
-            if (ModelState.IsValid)//проверка на стороне сервера
+            if (ModelState.IsValid)
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.CreateProductAsync<ResponseDtoBase>(model, accessToken);
@@ -87,7 +87,7 @@ namespace Vasilek.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProductDelete(ProductDtoBase model)
         {
-            if (ModelState.IsValid)//проверка на стороне сервера
+            if (ModelState.IsValid)
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.DeleteProductAsync<ResponseDtoBase>(model.ProductId, accessToken);

@@ -2,9 +2,12 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ProductAPI.DAL;
+using ProductAPI.DAL.Interfaces;
+using ProductAPI.DAL.Repository;
+using ProductAPI.Service.Implementations;
+using ProductAPI.Service.Interfaces;
 using Vasilek.Services.ProductAPI;
-using Vasilek.Services.ProductAPI.DbContexts;
-using Vasilek.Services.ProductAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +17,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connecti
 
 IMapper mapper= MappingConfig.RegisterMaps().CreateMapper();// create object mapping
 builder.Services.AddSingleton(mapper);
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());//настройка AutoMapper в ProductAPI
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 

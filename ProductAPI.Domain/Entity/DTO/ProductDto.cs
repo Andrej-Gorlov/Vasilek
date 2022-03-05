@@ -1,4 +1,10 @@
-﻿namespace Vasilek.Services.ProductAPI.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProductAPI.Domain.Entity.DTO
 {
     public class ProductDto
     {

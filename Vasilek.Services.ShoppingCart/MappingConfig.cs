@@ -6,7 +6,6 @@ namespace Vasilek.Services.ShoppingCart
 {
     public class MappingConfig
     {
-        //преобразования ProductDto в Product и наоборот
         public static MapperConfiguration RegisterMaps()
         {
             var mappingConfig = new MapperConfiguration(x => {

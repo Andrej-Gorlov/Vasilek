@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using Vasilek.Services.ProductAPI.Models;
-using Vasilek.Services.ProductAPI.Models.Dto;
+using ProductAPI.Domain.Entity;
+using ProductAPI.Domain.Entity.DTO;
 
 namespace Vasilek.Services.ProductAPI
 {
     public class MappingConfig
     {
-        //преобразования ProductDto в Product и наоборот
         public static MapperConfiguration RegisterMaps()
         {
             var mappingConfig = new MapperConfiguration(x =>{
