@@ -13,12 +13,13 @@ namespace Vasilek.Services.ProductAPI.Controllers
         {
           _productService = productService;
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<object> Get()=>await _productService.GetProducts();
+        public async Task<object> Get() => await _productService.GetProducts();
 
         /// <summary>
         /// 
@@ -27,25 +28,36 @@ namespace Vasilek.Services.ProductAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<object> Get(int id)=> await _productService.GetProductById(id);
+        public async Task<object> Get(int id) => await _productService.GetProductById(id);
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productDto"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<object> Post([FromBody] ProductDto productDto)=>
+        public async Task<object> Post([FromBody] ProductDto productDto) =>
             await _productService.CreateUpdateProduct(productDto);
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productDto"></param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize]
         public async Task<object> Put([FromBody] ProductDto productDto) => 
             await _productService.CreateUpdateProduct(productDto);
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles ="Admin")]
         [Route("{id}")]
-        public async Task<object> Delete(int id)=>await _productService.DeleteProduct(id);
-
+        public async Task<object> Delete(int id) => await _productService.DeleteProduct(id);
     }
 }

@@ -17,7 +17,6 @@ namespace ProductAPI.Service.Implementations
         {
             _productRepository = productRepository;
         }
-
         public async Task<IBaseResponse<ProductDto>> CreateUpdateProduct(ProductDto productDto)
         {
             var baseResponse = new BaseResponse<ProductDto>();
@@ -33,7 +32,6 @@ namespace ProductAPI.Service.Implementations
             }
             return baseResponse;
         }
-
         public async Task<IBaseResponse<bool>> DeleteProduct(int id)
         {
             var baseResponse = new BaseResponse<bool>();
@@ -49,7 +47,6 @@ namespace ProductAPI.Service.Implementations
             }
             return baseResponse;
         }
-
         public async Task<IBaseResponse<ProductDto>> GetProductById(int id)
         {
             var baseResponse = new BaseResponse<ProductDto>();
@@ -65,7 +62,6 @@ namespace ProductAPI.Service.Implementations
             }
             return baseResponse;
         }
-
         public async Task<IBaseResponse<IEnumerable<ProductDto>>> GetProducts()
         {
             var baseResponse = new BaseResponse<IEnumerable<ProductDto>>();

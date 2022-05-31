@@ -25,12 +25,14 @@ namespace Vasilek.Web.Controllers
             }
             return View(list);
         }
-
         public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
+
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProductCreate(ProductDtoBase model)
         {
@@ -55,12 +57,12 @@ namespace Vasilek.Web.Controllers
              }
             return NotFound();
         }
-
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProductEdit(ProductDtoBase model)
         {
-            if (ModelState.IsValid)//проверка на стороне сервера
+            if (ModelState.IsValid)
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.UpdateProductAsync<ResponseDtoBase>(model, accessToken);
@@ -70,7 +72,6 @@ namespace Vasilek.Web.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ProductDelete(int productId)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");

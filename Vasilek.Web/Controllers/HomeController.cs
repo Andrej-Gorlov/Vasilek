@@ -79,32 +79,28 @@ namespace Vasilek.Web.Controllers
                     UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value
                 }
             };
-
-            CartDetailsDtoBase cartDetails = new CartDetailsDtoBase()
+            CartDetailsDtoBase cartDetails = new ()
             {
                 Count = productDto.Count,
                 ProductId = productDto.ProductId
             };
-
             var resp = await _productService.GetProductByIdAsync<ResponseDtoBase>(productDto.ProductId, "");
-            
             if (resp != null && resp.IsSuccess)
             {
                 cartDetails.Product = JsonConvert.DeserializeObject<ProductDtoBase>(Convert.ToString(resp.Result));
             }
-
             List<CartDetailsDtoBase> cartDetailsDtos = new();
             cartDetailsDtos.Add(cartDetails);
 
             cartDto.CartDetails = cartDetailsDtos;
 
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-
             var addToCartResp = await _shoppingCartService.AddToCartAsync<ResponseDtoBase>(cartDto, accessToken);
             
             if (addToCartResp != null && addToCartResp.IsSuccess)
+            {
                 return RedirectToAction(nameof(Index));
-
+            }
             return View(productDto);
         }
 

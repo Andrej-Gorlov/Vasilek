@@ -1,7 +1,26 @@
 
 /* USER STYLES */
 
-body, html {
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/*body, html {
     height: 100%;
 }
 
@@ -30,9 +49,9 @@ body {
 
 
 a.obl{
-        position: relative;
+        position: relative;*/
         /*display:block;*/
-        color: mediumblue;
+        /*color: mediumblue;
         text-decoration: none;
         margin: 20px auto;
         text-align:center;
@@ -141,7 +160,7 @@ a.obl:hover:before, a.obl:hover:after{
     padding: 0;
     text-align: center;
     display: block;
-}
+}*/
 
 .bucn_3_4r {
     color: #0d6efd;

@@ -27,12 +27,10 @@ namespace Vasilek.Services.ShoppingCart.Repository
             var cartHeaderFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
             if (cartHeaderFromDb != null)
             {
-                _db.CartDetails
-                    .RemoveRange(_db.CartDetails.Where(u => u.CartHeaderId == cartHeaderFromDb.CartHeaderId));
+                _db.CartDetails.RemoveRange(_db.CartDetails.Where(u => u.CartHeaderId == cartHeaderFromDb.CartHeaderId));
                 _db.CartHeaders.Remove(cartHeaderFromDb);
                 await _db.SaveChangesAsync();
                 return true;
-
             }
             return false;
         }
@@ -41,28 +39,24 @@ namespace Vasilek.Services.ShoppingCart.Repository
         {
             Cart cart = _mapper.Map<Cart>(cartDto);
             var prodInDb = await _db.Products
-                .FirstOrDefaultAsync(x => x.ProductId == cartDto.CartDetails.FirstOrDefault()
-                .ProductId);
+                .FirstOrDefaultAsync(x => x.ProductId == cartDto.CartDetails.FirstOrDefault().ProductId);
 
-            if (prodInDb == null)
+            if (prodInDb is null)
             {
                 _db.Products.Add(cart.CartDetails.FirstOrDefault().Product);
                 await _db.SaveChangesAsync();
             }
-
-
             //check if header is null
-            var cartHeaderFromDb = await _db.CartHeaders.AsNoTracking()   // AsNoTracking() не помещаются в кэш (EF не производит дополнительную обработку и не выделяет дополнительное место для хранения извлеченных из БД объектов).
-                .FirstOrDefaultAsync(u => u.UserId == cart.CartHeader.UserId);
+            var cartHeaderFromDb = await _db.CartHeaders.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == cart.CartHeader.UserId);// AsNoTracking() не помещаются в кэш (EF не производит дополнительную обработку и не выделяет дополнительное место для хранения извлеченных из БД объектов).
 
-            if (cartHeaderFromDb == null)
+            if (cartHeaderFromDb is null)
             {
                 //create header and details
-                _db.CartHeaders.Add(cart.CartHeader);//create new id
+                _db.CartHeaders.Add(cart.CartHeader);
                 await _db.SaveChangesAsync();
 
-                cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.CartHeaderId;
-                cart.CartDetails.FirstOrDefault().Product = null; //что бы не было кофликта, так как product с такимже id было добавлен (ст. 41)
+                cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.CartHeaderId;//create new id
+                cart.CartDetails.FirstOrDefault().Product = null; //что бы не было кофликта, так как product с такимже id было добавлен
                 _db.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                 await _db.SaveChangesAsync();
             }
@@ -74,7 +68,7 @@ namespace Vasilek.Services.ShoppingCart.Repository
                     u => u.ProductId == cart.CartDetails.FirstOrDefault().ProductId &&
                     u.CartHeaderId == cartHeaderFromDb.CartHeaderId);
 
-                if (cartDetailsFromDb == null)
+                if (cartDetailsFromDb is null)
                 {
                     //create details
                     cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeaderFromDb.CartHeaderId;
@@ -93,7 +87,6 @@ namespace Vasilek.Services.ShoppingCart.Repository
                     await _db.SaveChangesAsync();
                 }
             }
-
             return _mapper.Map<CartDto>(cart);
         }
 
@@ -103,10 +96,7 @@ namespace Vasilek.Services.ShoppingCart.Repository
             {
                 CartHeader = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId)
             };
-
-            cart.CartDetails = _db.CartDetails
-                .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId).Include(u => u.Product);
-
+            cart.CartDetails = _db.CartDetails.Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId).Include(u => u.Product);
             return _mapper.Map<CartDto>(cart);
         }
 
@@ -119,18 +109,13 @@ namespace Vasilek.Services.ShoppingCart.Repository
         {
             try
             {
-                CartDetails cartDetails = await _db.CartDetails
-                    .FirstOrDefaultAsync(u => u.CartDetailsId == cartDetailsId);
-
-                int totalCountOfCartItems = _db.CartDetails
-                    .Where(u => u.CartHeaderId == cartDetails.CartHeaderId).Count();
+                CartDetails? cartDetails = await _db.CartDetails.FirstOrDefaultAsync(u => u.CartDetailsId == cartDetailsId);
+                int totalCountOfCartItems = _db.CartDetails.Where(u => u.CartHeaderId == cartDetails.CartHeaderId).Count();
 
                 _db.CartDetails.Remove(cartDetails);
                 if (totalCountOfCartItems == 1)
                 {
-                    var cartHeaderToRemove = await _db.CartHeaders
-                        .FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
-
+                    var cartHeaderToRemove = await _db.CartHeaders.FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
                     _db.CartHeaders.Remove(cartHeaderToRemove);
                 }
                 await _db.SaveChangesAsync();
