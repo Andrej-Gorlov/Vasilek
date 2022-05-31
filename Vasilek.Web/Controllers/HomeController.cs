@@ -69,7 +69,7 @@ namespace Vasilek.Web.Controllers
 
         [HttpPost]
         [ActionName("Details")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> DetailsPost(ProductDtoBase productDto)
         {
             CartDtoBase cartDto = new()
@@ -103,18 +103,6 @@ namespace Vasilek.Web.Controllers
             }
             return View(productDto);
         }
-
-
-
-
-
-
-
-
-
-
-
-
         public IActionResult Privacy()
         {
             return View();

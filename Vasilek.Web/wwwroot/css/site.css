@@ -213,5 +213,50 @@ a.obl:hover:before, a.obl:hover:after{
 /*?????????????????????????????????????????????????????????*/
 
 
+.bucn_3_3r {
+    color: #0d6efd;
+    border: 0px solid #0d6efd;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 18px;
+    font-family: verdana;
+    overflow: hidden;
+    display: inline-block;
+    outline: medium none;
+    padding: 5px 10px;
+    position: relative;
+    text-decoration: none;
+    z-index: 1;
+    /*-webkit-box-shadow: 0 0 4px #999;
+    -moz-box-shadow: 0 0 4px #999;
+    -o-box-shadow: 0 0 4px #999;
+    box-shadow: 0 0 4px #999;*/
+}
 
+    .bucn_3_3r::after {
+        background-color: #5c9eff;
+        left: 50%;
+        top: 50%;
+        height: 0;
+        width: 150%;
+        transform: translateX(-50%) translateY(-50%);
+        opacity: 0.5;
+        position: absolute;
+        content: "";
+        transition: all 0.75s ease 0s;
+        z-index: -1;
+    }
+
+    .bucn_3_3r:hover::after {
+        height: 140%;
+        opacity: 1;
+    }
+
+    .bucn_3_3r:hover, .bucn_3_3r:active {
+        color: #fff;
+        text-shadow: 0 1px 2px #333;
+    }
+
+*::before, *::after {
+    box-sizing: border-box;
+}
  
