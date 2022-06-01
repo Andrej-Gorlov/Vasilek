@@ -71,6 +71,24 @@ namespace Vasilek.Web.Controllers
             return View(await LoadCartDtoBasedOnLoggedInUser());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CartDtoBase cartDto)
+        {
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _cartService.Checkout<ResponseDtoBase>(cartDto.CartHeader, accessToken);
+
+                return RedirectToAction(nameof(Confirmation));
+            }
+            catch (Exception e)
+            {
+                return View(cartDto);
+            }
+        }
+
+        public async Task<IActionResult> Confirmation() => View();
+
         private async Task<CartDtoBase> LoadCartDtoBasedOnLoggedInUser()
         {
             var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
