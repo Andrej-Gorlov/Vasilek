@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Vasilek.Services.ShoppingCart.CouponAPI.Models;
-using Vasilek.Services.ShoppingCart.CouponAPI.Models.Dto;
+using Vasilek.Services.CouponAPI.Models;
+using Vasilek.Services.CouponAPI.Models.Dto;
 
-namespace Vasilek.Services.ShoppingCart.CouponAPI
+namespace Vasilek.Services.CouponAPI
 {
     public class MappingConfig
     {

@@ -1,4 +1,4 @@
-﻿namespace Vasilek.Services.ShoppingCart.CouponAPI.Models.Dto
+﻿namespace Vasilek.Services.CouponAPI.Models.Dto
 {
     public class ResponseDto
     {

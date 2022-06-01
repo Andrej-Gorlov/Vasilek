@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Vasilek.Services.ShoppingCart.CouponAPI.Models;
+using Vasilek.Services.CouponAPI.Models;
 
-namespace Vasilek.Services.ShoppingCart.CouponAPI.DbContexts
+namespace Vasilek.Services.CouponAPI.DbContexts
 {
     public class ApplicationDbContext : DbContext
     {

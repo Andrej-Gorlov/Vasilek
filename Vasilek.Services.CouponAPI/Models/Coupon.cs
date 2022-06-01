@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Vasilek.Services.ShoppingCart.CouponAPI.Models
+namespace Vasilek.Services.CouponAPI.Models
 {
     public class Coupon
     {

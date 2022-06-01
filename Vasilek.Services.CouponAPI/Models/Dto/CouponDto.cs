@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Vasilek.Services.ShoppingCart.CouponAPI.Models
+﻿namespace Vasilek.Services.CouponAPI.Models.Dto
 {
-    public class Coupon
+    public class CouponDto
     {
-        [Key]
         public int CouponId { get; set; }
         public string? CouponCode { get; set; }
         public double DiscountAmount { get; set; }
