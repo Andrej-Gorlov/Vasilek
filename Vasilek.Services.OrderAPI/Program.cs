@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Vasilek.Services.OrderAPI.DbContexts;
+using Vasilek.Services.OrderAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseNpgsql(connectionString));
 
-//builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+optionBuilder.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options));
 
 builder.Services.AddControllers();
 
