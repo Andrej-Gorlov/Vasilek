@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Vasilek.Services.ShoppingCart.Messages;
 using Vasilek.Services.ShoppingCart.Models.Dto;
 using Vasilek.Services.ShoppingCart.Repository;
 
@@ -119,6 +120,12 @@ namespace Vasilek.Services.ShoppingCart.Controllers
                 _response.ErrorMessages = new List<string>() { ex.ToString() };
             }
             return _response;
+        }
+
+        [HttpPost("Checkout")]
+        public async Task<object> Checkout(CheckoutHeaderDto checkoutHeader)
+        {
+
         }
     }
 }
