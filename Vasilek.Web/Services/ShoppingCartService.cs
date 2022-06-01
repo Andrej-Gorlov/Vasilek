@@ -23,9 +23,15 @@ namespace Vasilek.Web.Services
             });
         }
 
-        public Task<T> ApplyCoupon<T>(CartDtoBase cartDto, string? token = null)
+        public async Task<T> ApplyCoupon<T>(CartDtoBase cartDto, string? token = null)
         {
-            throw new NotImplementedException();
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                Api_Type = StaticDitels.ApiType.POST,
+                Data = cartDto,
+                Url = StaticDitels.ShoppingCartApiBase + "/api/cart/ApplyCoupon",
+                AccessToken = token
+            });
         }
 
         public Task<T> Checkout<T>(CartHeaderDtoBase cartHeader, string? token = null)
@@ -43,9 +49,15 @@ namespace Vasilek.Web.Services
             });
         }
 
-        public Task<T> RemoveCoupon<T>(string userId, string? token = null)
+        public async Task<T> RemoveCoupon<T>(string userId, string? token = null)
         {
-            throw new NotImplementedException();
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                Api_Type = StaticDitels.ApiType.POST,
+                Data = userId,
+                Url = StaticDitels.ShoppingCartApiBase + "/api/cart/RemoveCoupon",
+                AccessToken = token
+            });
         }
 
         public async Task<T> RemoveFromCartAsync<T>(int cartId, string? token = null)
