@@ -34,9 +34,15 @@ namespace Vasilek.Web.Services
             });
         }
 
-        public Task<T> Checkout<T>(CartHeaderDtoBase cartHeader, string? token = null)
+        public async Task<T> Checkout<T>(CartHeaderDtoBase cartHeader, string? token = null)
         {
-            throw new NotImplementedException();
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                Api_Type = StaticDitels.ApiType.POST,
+                Data = cartHeader,
+                Url = StaticDitels.ShoppingCartApiBase + "/api/cart/checkout",
+                AccessToken = token
+            });
         }
 
         public async Task<T> GetCartByUserIdAsnyc<T>(string userId, string? token = null)

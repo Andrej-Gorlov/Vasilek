@@ -125,7 +125,25 @@ namespace Vasilek.Services.ShoppingCart.Controllers
         [HttpPost("Checkout")]
         public async Task<object> Checkout(CheckoutHeaderDto checkoutHeader)
         {
+            try
+            {
+                CartDto cartDto = await _cartRepository.GetCartByUserId(checkoutHeader.UserId);
+                if (cartDto is null)
+                {
+                    return BadRequest();
+                }
 
+
+
+                checkoutHeader.CartDetails = cartDto.CartDetails;
+
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
         }
     }
 }
