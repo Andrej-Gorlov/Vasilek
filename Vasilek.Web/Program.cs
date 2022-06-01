@@ -13,7 +13,7 @@ builder.Services.AddHttpClient<ICouponService, CouponService>();
 
 StaticDitels.ProductApiBase = builder.Configuration["ServiseUrl:ProductAPI"];
 StaticDitels.ShoppingCartApiBase = builder.Configuration["ServiseUrl:ShoppingCartAPI"];
-StaticDitels.ShoppingCartApiBase = builder.Configuration["ServiseUrl:CouponAPI"];
+StaticDitels.CouponApiBase = builder.Configuration["ServiseUrl:CouponAPI"];
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();

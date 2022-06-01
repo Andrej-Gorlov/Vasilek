@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Vasilek.Services.CouponAPI;
 using Vasilek.Services.CouponAPI.DbContexts;
+using Vasilek.Services.CouponAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 
 builder.Services.AddControllers();
 

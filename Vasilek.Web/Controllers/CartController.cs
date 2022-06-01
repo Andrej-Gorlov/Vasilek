@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Vasilek.Web.Models;
+using Vasilek.Web.Models.CouponAPI;
 using Vasilek.Web.Models.ShoppingCartAPI;
 using Vasilek.Web.Services.IServices;
 
@@ -11,10 +12,12 @@ namespace Vasilek.Web.Controllers
     {
         private readonly IProductService _productService;
         private readonly IShoppingCartService _cartService;
-        public CartController(IProductService productService, IShoppingCartService cartService)
+        private readonly ICouponService _couponService;
+        public CartController(IProductService productService, IShoppingCartService cartService, ICouponService couponService)
         {
             _productService = productService;
             _cartService = cartService;
+            _couponService = couponService;
         }
         public async Task<IActionResult> CartIndex()
         {
@@ -77,22 +80,22 @@ namespace Vasilek.Web.Controllers
 
             if (cartDto.CartHeader != null)
             {
-                //if (!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
-                //{
-                //    var coupon = await _couponService.GetCoupon<ResponseDto>(cartDto.CartHeader.CouponCode, accessToken);
-                //    if (coupon != null && coupon.IsSuccess)
-                //    {
-                //        var couponObj = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(coupon.Result));
-                //        cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
-                //    }
-                //}
+                if (!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
+                {
+                    var coupon = await _couponService.GetCoupon<ResponseDtoBase>(cartDto.CartHeader.CouponCode, accessToken);
+                    if (coupon != null && coupon.IsSuccess)
+                    {
+                        var couponObj = JsonConvert.DeserializeObject<CouponDtoBase>(Convert.ToString(coupon.Result));
+                        cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
+                    }
+                }
 
                 foreach (var detail in cartDto.CartDetails)
                 {
                     cartDto.CartHeader.OrderTotal += (detail.Product.Price * detail.Count);
                 }
 
-                //cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
+                cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
             }
             return cartDto;
         }
