@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Vasilek.MessageBus;
 using Vasilek.Services.ShoppingCart.Messages;
 using Vasilek.Services.ShoppingCart.Models.Dto;
 using Vasilek.Services.ShoppingCart.Repository;
@@ -12,7 +13,7 @@ namespace Vasilek.Services.ShoppingCart.Controllers
 
         private readonly ICartRepository _cartRepository;
         //private readonly ICouponRepository _couponRepository;
-        //private readonly IMessageBus _messageBus;
+        private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
         //private readonly IRabbitMQCartMessageSender _rabbitMQCartMessageSender;
 
@@ -133,10 +134,25 @@ namespace Vasilek.Services.ShoppingCart.Controllers
                     return BadRequest();
                 }
 
-
+                //if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
+                //{
+                //    CouponDto coupon = await _couponRepository.GetCoupon(checkoutHeader.CouponCode);
+                //    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
+                //    {
+                //        _response.IsSuccess = false;
+                //        _response.ErrorMessages = new List<string>() { "Coupon Price has changed, please confirm" };
+                //        _response.DisplayMessage = "Coupon Price has changed, please confirm";
+                //        return _response;
+                //    }
+                //}
 
                 checkoutHeader.CartDetails = cartDto.CartDetails;
+                //logic to add message to process order.
+                await _messageBus.PublishMessage(checkoutHeader, "checkoutqueue");
 
+                ////rabbitMQ  
+                //_rabbitMQCartMessageSender.SendMessage(checkoutHeader, "checkoutqueue");
+                await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
             catch (Exception ex)
             {

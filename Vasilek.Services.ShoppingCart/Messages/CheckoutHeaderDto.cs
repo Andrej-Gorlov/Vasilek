@@ -1,8 +1,9 @@
-﻿using Vasilek.Services.ShoppingCart.Models.Dto;
+﻿using Vasilek.MessageBus;
+using Vasilek.Services.ShoppingCart.Models.Dto;
 
 namespace Vasilek.Services.ShoppingCart.Messages
 {
-    public class CheckoutHeaderDto
+    public class CheckoutHeaderDto : BaseMessage 
     {
         public int CartHeaderId { get; set; }
         public string? UserId { get; set; }
