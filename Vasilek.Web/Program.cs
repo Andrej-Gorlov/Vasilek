@@ -9,12 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient<IProductService, ProductService>();
 builder.Services.AddHttpClient<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddHttpClient<ICouponService, CouponService>();
 
 StaticDitels.ProductApiBase = builder.Configuration["ServiseUrl:ProductAPI"];
 StaticDitels.ShoppingCartApiBase = builder.Configuration["ServiseUrl:ShoppingCartAPI"];
+StaticDitels.ShoppingCartApiBase = builder.Configuration["ServiseUrl:CouponAPI"];
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 builder.Services.AddControllersWithViews();
 
