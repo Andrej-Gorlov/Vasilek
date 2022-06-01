@@ -65,9 +65,18 @@
                 }
                 <div class="row">
                     <div class="col-6 text-primary">
-                        <span>Купон:</span>
-                        <input />
-                        <button type="submit" class="bucn_3_3r"> Применить </button>
+                        @if (string.IsNullOrEmpty(Model.CartHeader.CouponCode))
+                        {
+                            <span>Купон:</span>
+                            <input asp-for="CartHeader.CouponCode" />
+                            <button type="submit" asp-action="ApplyCoupon" class="bucn_3_3r"> Применить </button>    
+                        }
+                        else
+                        {
+                            <span>Купон:</span>
+                            <input asp-for="CartHeader.CouponCode" disabled />
+                            <button type="submit" asp-action="RemoveCoupon" class="bucn_3_3r"> Удалить </button>    
+                        }
                     </div>
                     <div class="col-6 text-end">
                         <span class="text-primary" style="font-size:21px;">  Сумма заказа : @string.Format("{0:c}", Model.CartHeader.OrderTotal) <br /></span>
