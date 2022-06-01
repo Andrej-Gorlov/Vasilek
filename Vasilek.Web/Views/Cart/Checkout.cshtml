@@ -98,7 +98,7 @@
                                     Сумма заказа :  @string.Format("{0:c}", Model.CartHeader.OrderTotal) <br />
                                     @if (Model.CartHeader.DiscountTotal > 0)
                                     {
-                                        <span class="text-primary"> Применить скидку :  @string.Format("{0:c}", Model.CartHeader.DiscountTotal)</span>
+                                        <span class="text-primary"> Скидка :  @string.Format("{0:c}", Model.CartHeader.DiscountTotal)</span>
                                     }
                                 </div>
                             </div>
@@ -119,4 +119,13 @@
             </div>
         </div>
     </form>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function(){
+           $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii'});
+           $('.form_datetime').datetimepicker('setStartDate', new Date());
+        });
+    </script>
 }
