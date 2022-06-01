@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vasilek.MessageBus", "Vasilek.MessageBus\Vasilek.MessageBus.csproj", "{015D4D6D-0DF4-4532-A826-7C1387C2E473}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vasilek.Services.OrderAPI", "Vasilek.Services.OrderAPI\Vasilek.Services.OrderAPI.csproj", "{D590CFE3-8EC5-4E2C-8096-8395C978C866}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{015D4D6D-0DF4-4532-A826-7C1387C2E473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{015D4D6D-0DF4-4532-A826-7C1387C2E473}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{015D4D6D-0DF4-4532-A826-7C1387C2E473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D590CFE3-8EC5-4E2C-8096-8395C978C866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D590CFE3-8EC5-4E2C-8096-8395C978C866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D590CFE3-8EC5-4E2C-8096-8395C978C866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D590CFE3-8EC5-4E2C-8096-8395C978C866}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{636DD5CB-FCA1-493F-A6F1-FC5453D06714} = {F2B2F84B-BB37-403F-88BC-9B636555F27B}
 		{0D7E2787-C955-43FA-8B67-C5C966D93597} = {9FC51557-5609-4744-ACDF-3102333375F2}
 		{015D4D6D-0DF4-4532-A826-7C1387C2E473} = {FA470C3E-17EA-4CFC-8230-F8CE1599722C}
+		{D590CFE3-8EC5-4E2C-8096-8395C978C866} = {9FC51557-5609-4744-ACDF-3102333375F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D7B7617-8509-4477-B6B4-E0EBB603C8AD}
