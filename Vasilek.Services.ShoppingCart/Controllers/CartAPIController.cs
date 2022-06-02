@@ -142,7 +142,6 @@ namespace Vasilek.Services.ShoppingCart.Controllers
                         return _response;
                     }
                 }
-
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.
                 await _messageBus.PublishMessage(checkoutHeader, "checkoutqueue");
