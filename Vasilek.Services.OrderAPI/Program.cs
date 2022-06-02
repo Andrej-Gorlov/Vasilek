@@ -98,4 +98,4 @@ app.MapControllers();
 
 app.Run();
 
-app.UseAzureServiceBusConsumer();
+//app.UseAzureServiceBusConsumer();

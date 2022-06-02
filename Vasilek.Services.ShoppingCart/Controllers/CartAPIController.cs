@@ -10,18 +10,17 @@ namespace Vasilek.Services.ShoppingCart.Controllers
     [Route("api/cart")]
     public class CartAPIController : Controller
     {
-
         private readonly ICartRepository _cartRepository;
         private readonly IMessageBus _messageBus;
+        private readonly ICouponRepository _couponRepository;
         protected ResponseDto _response;
 
-        public CartAPIController(ICartRepository cartRepository)
+        public CartAPIController(ICartRepository cartRepository, ICouponRepository couponRepository,IMessageBus messageBus)
         {
-            _cartRepository = cartRepository;
-            //_couponRepository = couponRepository;
-            //_rabbitMQCartMessageSender = rabbitMQCartMessageSender;
-            //_messageBus = messageBus;
+            this._cartRepository = cartRepository;
+            this._messageBus = messageBus;
             this._response = new ResponseDto();
+            _couponRepository = couponRepository;
         }
 
         [HttpGet("GetCart/{userId}")]
@@ -130,6 +129,18 @@ namespace Vasilek.Services.ShoppingCart.Controllers
                 if (cartDto is null)
                 {
                     return BadRequest();
+                }
+
+                if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
+                {
+                    CouponDto coupon = await _couponRepository.GetCoupon(checkoutHeader.CouponCode);
+                    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
+                    {
+                        _response.IsSuccess = false;
+                        _response.ErrorMessages = new List<string>() { "Цена купона изменилась, пожалуйста, подтвердите" };
+                        _response.DisplayMessage = "Цена купона изменилась, пожалуйста, подтвердите";
+                        return _response;
+                    }
                 }
 
                 checkoutHeader.CartDetails = cartDto.CartDetails;
