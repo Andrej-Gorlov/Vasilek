@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Vasilek.Services.OrderAPI.DbContexts;
+using Vasilek.Services.OrderAPI.Extension;
+using Vasilek.Services.OrderAPI.Messaging;
 using Vasilek.Services.OrderAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,8 @@ var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options));
+//builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
+//builder.Services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
 
 builder.Services.AddControllers();
 
@@ -93,3 +97,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+app.UseAzureServiceBusConsumer();
