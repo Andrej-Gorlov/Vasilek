@@ -35,14 +35,12 @@ namespace Vasilek.Services.Email.Messaging
 
         public async Task Start()
         {
-
             orderUpdatePaymentStatusProcessor.ProcessMessageAsync += OnOrderPaymentUpdateReceived;
             orderUpdatePaymentStatusProcessor.ProcessErrorAsync += ErrorHandler;
             await orderUpdatePaymentStatusProcessor.StartProcessingAsync();
         }
         public async Task Stop()
         {
-
             await orderUpdatePaymentStatusProcessor.StopProcessingAsync();
             await orderUpdatePaymentStatusProcessor.DisposeAsync();
         }
@@ -51,8 +49,6 @@ namespace Vasilek.Services.Email.Messaging
             Console.WriteLine(args.Exception.ToString());
             return Task.CompletedTask;
         }
-
-
 
         private async Task OnOrderPaymentUpdateReceived(ProcessMessageEventArgs args)
         {
