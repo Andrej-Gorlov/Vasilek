@@ -39,9 +39,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vasilek.Services.OrderAPI",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{07F76B2E-0075-4B9F-9121-D911C242D001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{1E265736-78A8-4EB3-B7CE-A81C14188BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{1E265736-78A8-4EB3-B7CE-A81C14188BB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vasilek.Services.PaymentAPI", "Vasilek.Services.PaymentAPI\Vasilek.Services.PaymentAPI.csproj", "{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vasilek.Services.PaymentAPI", "Vasilek.Services.PaymentAPI\Vasilek.Services.PaymentAPI.csproj", "{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vasilek.Services.Email", "Vasilek.Services.Email\Vasilek.Services.Email.csproj", "{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{D590CFE3-8EC5-4E2C-8096-8395C978C866} = {9FC51557-5609-4744-ACDF-3102333375F2}
 		{1E265736-78A8-4EB3-B7CE-A81C14188BB2} = {07F76B2E-0075-4B9F-9121-D911C242D001}
 		{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78} = {9FC51557-5609-4744-ACDF-3102333375F2}
+		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E} = {9FC51557-5609-4744-ACDF-3102333375F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D7B7617-8509-4477-B6B4-E0EBB603C8AD}
