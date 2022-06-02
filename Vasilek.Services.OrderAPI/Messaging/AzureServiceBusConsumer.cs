@@ -1,6 +1,7 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
 using System.Text;
+using Vasilek.MessageBus;
 using Vasilek.Services.OrderAPI.Messages;
 using Vasilek.Services.OrderAPI.Models;
 using Vasilek.Services.OrderAPI.Repository;
@@ -12,24 +13,31 @@ namespace Vasilek.Services.OrderAPI.Messaging
         private readonly string serviceBusConnectionString;
         private readonly string subscriptionCheckOut;
         private readonly string checkoutMessageTopic;
+        private readonly string orderPaymentProcessTopic;
+        private readonly string orderUpdatePaymentResultTopic;
 
         private readonly OrderRepository _orderRepository;
 
         private ServiceBusProcessor checkOutProcessor;
 
         private readonly IConfiguration _configuration;
+        private readonly IMessageBus _messageBus;
 
-        public AzureServiceBusConsumer(OrderRepository orderRepository, IConfiguration configuration)
+        public AzureServiceBusConsumer(OrderRepository orderRepository, IConfiguration configuration, IMessageBus messageBus)
         {
             this._orderRepository = orderRepository;
             this._configuration = configuration;
+            this._messageBus = messageBus;
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionCheckOut = _configuration.GetValue<string>("SubscriptionCheckOut");
             checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
+            orderPaymentProcessTopic = _configuration.GetValue<string>("OrderPaymentProcessTopics");
+            orderUpdatePaymentResultTopic = _configuration.GetValue<string>("OrderUpdatePaymentResultTopic");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
             checkOutProcessor = client.CreateProcessor(checkoutMessageTopic);
+
             //orderUpdatePaymentStatusProcessor = client.CreateProcessor(orderUpdatePaymentResultTopic, subscriptionCheckOut);
         }
         public async Task Start()
@@ -108,15 +116,15 @@ namespace Vasilek.Services.OrderAPI.Messaging
                 Email = orderHeader.Email
             };
 
-            //try
-            //{
-            //    await _messageBus.PublishMessage(paymentRequestMessage, orderPaymentProcessTopic);
-            //    await args.CompleteMessageAsync(args.Message);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw;
-            //}
+            try
+            {
+                await _messageBus.PublishMessage(paymentRequestMessage, orderPaymentProcessTopic);
+                await args.CompleteMessageAsync(args.Message);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
 
         }
     }

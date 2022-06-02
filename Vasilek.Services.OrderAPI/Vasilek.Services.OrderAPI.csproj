@@ -24,4 +24,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vasilek.MessageBus\Vasilek.MessageBus.csproj" />
+  </ItemGroup>
+
 </Project>

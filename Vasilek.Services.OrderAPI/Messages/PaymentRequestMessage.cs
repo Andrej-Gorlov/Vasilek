@@ -1,6 +1,8 @@
-﻿namespace Vasilek.Services.OrderAPI.Messages
+﻿using Vasilek.MessageBus;
+
+namespace Vasilek.Services.OrderAPI.Messages
 {
-    public class PaymentRequestMessage
+    public class PaymentRequestMessage : BaseMessage
     {
         public int OrderId { get; set; }
         public string? Name { get; set; }
