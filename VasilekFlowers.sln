@@ -43,7 +43,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentProcessor", "Payment
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vasilek.Services.PaymentAPI", "Vasilek.Services.PaymentAPI\Vasilek.Services.PaymentAPI.csproj", "{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vasilek.Services.Email", "Vasilek.Services.Email\Vasilek.Services.Email.csproj", "{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vasilek.Services.Email", "Vasilek.Services.Email\Vasilek.Services.Email.csproj", "{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Geteway", "Geteway", "{1911368A-3EC6-4B31-90EF-18BD8FFA2D72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vasilek.GetewaySolution", "Vasilek.GetewaySolution\Vasilek.GetewaySolution.csproj", "{211B5FB6-90FB-4E66-8324-13B5F9F36DDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +107,10 @@ Global
 		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{211B5FB6-90FB-4E66-8324-13B5F9F36DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{211B5FB6-90FB-4E66-8324-13B5F9F36DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{211B5FB6-90FB-4E66-8324-13B5F9F36DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{211B5FB6-90FB-4E66-8324-13B5F9F36DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +133,7 @@ Global
 		{1E265736-78A8-4EB3-B7CE-A81C14188BB2} = {07F76B2E-0075-4B9F-9121-D911C242D001}
 		{1975BC9A-9B40-4ADB-B6E2-12B3A8354B78} = {9FC51557-5609-4744-ACDF-3102333375F2}
 		{6B96B245-20AA-46F7-9FEA-56D0AC7DDB9E} = {9FC51557-5609-4744-ACDF-3102333375F2}
+		{211B5FB6-90FB-4E66-8324-13B5F9F36DDB} = {1911368A-3EC6-4B31-90EF-18BD8FFA2D72}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D7B7617-8509-4477-B6B4-E0EBB603C8AD}
