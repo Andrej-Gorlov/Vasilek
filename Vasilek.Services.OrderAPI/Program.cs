@@ -5,6 +5,7 @@ using Vasilek.MessageBus;
 using Vasilek.Services.OrderAPI.DbContexts;
 using Vasilek.Services.OrderAPI.Extension;
 using Vasilek.Services.OrderAPI.Messaging;
+using Vasilek.Services.OrderAPI.RabbitMQSender;
 using Vasilek.Services.OrderAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +20,12 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
+builder.Services.AddHostedService<RabbitMQPaymentConsumer>();
+builder.Services.AddHostedService<RabbitMQCheckoutConsumer>();// авто запуск 
 builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options));
 //builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 //builder.Services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
+builder.Services.AddSingleton<IRabbitMQOrderMessageSender, RabbitMQOrderMessageSender>();
 
 builder.Services.AddControllers();
 
@@ -96,6 +100,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();
 

@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Vasilek.MessageBus;
 using Vasilek.Services.ShoppingCart;
 using Vasilek.Services.ShoppingCart.DbContexts;
+using Vasilek.Services.ShoppingCart.RabbitMQSender;
 using Vasilek.Services.ShoppingCart.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
+builder.Services.AddSingleton<IRabbitMQCartMessageSender, RabbitMQCartMessageSender>();
 
 builder.Services.AddControllers();
 

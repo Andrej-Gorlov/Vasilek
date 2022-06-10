@@ -2,6 +2,7 @@
 using Vasilek.MessageBus;
 using Vasilek.Services.ShoppingCart.Messages;
 using Vasilek.Services.ShoppingCart.Models.Dto;
+using Vasilek.Services.ShoppingCart.RabbitMQSender;
 using Vasilek.Services.ShoppingCart.Repository;
 
 namespace Vasilek.Services.ShoppingCart.Controllers
@@ -11,15 +12,17 @@ namespace Vasilek.Services.ShoppingCart.Controllers
     public class CartAPIController : Controller
     {
         private readonly ICartRepository _cartRepository;
-        private readonly IMessageBus _messageBus;
+        private readonly IMessageBus _messageBus; //azure
         private readonly ICouponRepository _couponRepository;
         protected ResponseDto _response;
+        private readonly IRabbitMQCartMessageSender _rabbitMQCartMessageSender;
 
-        public CartAPIController(ICartRepository cartRepository, ICouponRepository couponRepository,IMessageBus messageBus)
+        public CartAPIController(ICartRepository cartRepository, ICouponRepository couponRepository,IMessageBus messageBus, IRabbitMQCartMessageSender rabbitMQCartMessageSender)
         {
-            this._cartRepository = cartRepository;
-            this._messageBus = messageBus;
-            this._response = new ResponseDto();
+            _cartRepository = cartRepository;
+            _messageBus = messageBus;
+            _rabbitMQCartMessageSender = rabbitMQCartMessageSender;
+            _response = new ResponseDto();
             _couponRepository = couponRepository;
         }
 
@@ -144,8 +147,9 @@ namespace Vasilek.Services.ShoppingCart.Controllers
                 }
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.
-                await _messageBus.PublishMessage(checkoutHeader, "checkoutqueue");
+                //await _messageBus.PublishMessage(checkoutHeader, "checkoutqueue"); azure
 
+                _rabbitMQCartMessageSender.SendMessage(checkoutHeader, "checkoutqueue"); //rabbitMQ
                 await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
             catch (Exception ex)
