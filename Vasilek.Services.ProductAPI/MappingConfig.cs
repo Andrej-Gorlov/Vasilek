@@ -9,8 +9,8 @@ namespace Vasilek.Services.ProductAPI
         public static MapperConfiguration RegisterMaps()
         {
             var mappingConfig = new MapperConfiguration(x =>{
-                 x.CreateMap<ProductDto, Product>();
-                 x.CreateMap<Product, ProductDto>();
+                x.CreateMap<Product, ProductDto>().ReverseMap();
+                x.CreateMap<Category, CategoryDto>().ReverseMap();
             });
             return mappingConfig;
         }

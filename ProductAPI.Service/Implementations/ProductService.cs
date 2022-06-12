@@ -2,79 +2,72 @@
 using ProductAPI.Domain.Entity.DTO;
 using ProductAPI.Domain.Response;
 using ProductAPI.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductAPI.Service.Implementations
 {
     public class ProductService: IProductService
     {
-        private IProductRepository? _productRepository;
+        private readonly IProductRepository? _productRepository;
         public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
-        public async Task<IBaseResponse<ProductDto>> CreateUpdateProduct(ProductDto productDto)
+        public async Task<IBaseResponse<ProductDto>> CreateServiceAsync(ProductDto modelDto)
         {
+            var products = await _productRepository.GetAsync();
+            if (products.FirstOrDefault(x => x.ProductId == modelDto.ProductId) != null)
+            {
+                throw new Exception("Попытка добавить объект, который уже существует в хранилище.");
+            }
             var baseResponse = new BaseResponse<ProductDto>();
-            try
+            var product = await _productRepository.CreateAsync(modelDto);
+            if (product != null)
             {
-                ProductDto model = await _productRepository.CreateUpdate(productDto);
-                baseResponse.Result = model;
+                baseResponse.IsSuccess = true;
             }
-            catch (Exception ex)
-            {
-                baseResponse.IsSuccess = false;
-                baseResponse.ErrorMessages = new List<string> { ex.ToString() };
-            }
+            baseResponse.Result = product;
             return baseResponse;
         }
-        public async Task<IBaseResponse<bool>> DeleteProduct(int id)
+        public async Task<IBaseResponse<bool>> DeleteServiceAsync(int id)
         {
             var baseResponse = new BaseResponse<bool>();
-            try
+            bool IsSuccess = await _productRepository.DeleteAsync(id);
+            if (IsSuccess)
             {
-                bool IsSuccess = await _productRepository.Delete(id);
-                baseResponse.Result = IsSuccess;
+                baseResponse.IsSuccess = true;
             }
-            catch (Exception ex)
-            {
-                baseResponse.IsSuccess = false;
-                baseResponse.ErrorMessages = new List<string> { ex.ToString() };
-            }
+            baseResponse.Result = IsSuccess;
             return baseResponse;
         }
-        public async Task<IBaseResponse<ProductDto>> GetProductById(int id)
+        public async Task<IBaseResponse<ProductDto>> GetByIdAsync(int id)
         {
             var baseResponse = new BaseResponse<ProductDto>();
-            try
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product != null)
             {
-                ProductDto productDto = await _productRepository.GetById(id);
-                baseResponse.Result = productDto;
+                baseResponse.IsSuccess = true;
             }
-            catch (Exception ex)
-            {
-                baseResponse.IsSuccess = false;
-                baseResponse.ErrorMessages = new List<string> { ex.ToString() };
-            }
+            baseResponse.Result = product;
             return baseResponse;
         }
-        public async Task<IBaseResponse<IEnumerable<ProductDto>>> GetProducts()
+        public async Task<IBaseResponse<IEnumerable<ProductDto>>> GetServiceAsync()
         {
             var baseResponse = new BaseResponse<IEnumerable<ProductDto>>();
-            try
+            var products = await _productRepository.GetAsync();
+            if (products.Count() is 0)
             {
-                IEnumerable<ProductDto> productDtos = await _productRepository.Get();
-                baseResponse.Result = productDtos;
+                baseResponse.IsSuccess = true;
+                baseResponse.DisplayMessage = "Сущность [Product] пуста";
             }
-            catch (Exception ex)
-            {
-                baseResponse.IsSuccess = false;
-                baseResponse.ErrorMessages = new List<string> { ex.ToString() };
-            }
+            baseResponse.Result = products;
+            return baseResponse;
+        }
+        public async Task<IBaseResponse<ProductDto>> UpdateServiceAsync(ProductDto modelDto)
+        {
+            var baseResponse = new BaseResponse<ProductDto>();
+            var product = await _productRepository.UpdateAsync(modelDto);
+            baseResponse.IsSuccess = true;
+            baseResponse.Result = product;
             return baseResponse;
         }
     }

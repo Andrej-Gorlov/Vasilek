@@ -3,8 +3,8 @@ using ProductAPI.Domain.Response;
 
 namespace ProductAPI.Service.Interfaces
 {
-    public interface IProductService : IBaseService<ProductDto>
+    public interface ICategoryService : IBaseService<CategoryDto>
     {
-        Task<IBaseResponse<ProductDto>> GetByIdAsync(int id);
+        Task<IBaseResponse<CategoryDto>> GetByIdAsync(int id);
     }
 }

@@ -87,6 +87,8 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -100,8 +102,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();
 

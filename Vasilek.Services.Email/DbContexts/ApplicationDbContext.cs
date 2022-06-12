@@ -9,5 +9,14 @@ namespace Vasilek.Services.Email.DbContexts
         {
         }
         public DbSet<EmailLog> EmailLogs { get; set; }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder
+        //        .Entity<EmailLog>()
+        //        .Property(e => e.EmailSent)
+        //        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'")
+        //        .HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Unspecified));
+        //}
     }
 }

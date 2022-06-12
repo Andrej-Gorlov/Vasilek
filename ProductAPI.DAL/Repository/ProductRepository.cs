@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using ProductAPI.DAL.Interfaces;
 using ProductAPI.Domain.Entity;
 using ProductAPI.Domain.Entity.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductAPI.DAL.Repository
 {
@@ -20,48 +15,42 @@ namespace ProductAPI.DAL.Repository
             _db = db;
             _mapper = mapper;
         }
-        public async Task<ProductDto> CreateUpdate(ProductDto productDto)
+        public async Task<ProductDto> CreateAsync(ProductDto model)
         {
-            Product product = _mapper.Map<ProductDto, Product>(productDto);
-            if (product.ProductId > 0)
-            {
-                _db.Product.Update(product);
-            }
-            else
-            {
-                _db.Product.Add(product);
-            }
+            Product product = _mapper.Map<ProductDto, Product>(model);
+            _db.Product.Add(product);
             await _db.SaveChangesAsync();
             return _mapper.Map<Product, ProductDto>(product);
         }
-
-        public async Task<bool> Delete(int productId)
+        public async Task<bool> DeleteAsync(int id)
         {
-            try
-            {
-                Product? product = await _db.Product.FirstOrDefaultAsync(x => x.ProductId == productId);
-                if (product == null)
-                    return false;
-                _db.Product.Remove(product);
-                await _db.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
+            Product? product = await _db.Product.FirstOrDefaultAsync(x => x.ProductId == id);
+            if (product is null)
             {
                 return false;
             }
+            _db.Product.Remove(product);
+            await _db.SaveChangesAsync();
+            return true;
         }
+        public async Task<IEnumerable<ProductDto>> GetAsync() =>
 
-        public async Task<IEnumerable<ProductDto>> Get()
-        {
-            List<Product> productList = await _db.Product.ToListAsync();
-            return _mapper.Map<List<ProductDto>>(productList);
-        }
+            _mapper.Map<IEnumerable<ProductDto>>(await _db.Product.Include(c => c.Category).ToListAsync());
 
-        public async Task<ProductDto> GetById(int productId)
+        public async Task<ProductDto> GetByIdAsync(int id) =>
+
+            _mapper.Map<ProductDto>(await _db.Product.Include(c => c.Category).FirstOrDefaultAsync(x => x.ProductId == id));
+
+        public async Task<ProductDto> UpdateAsync(ProductDto model)
         {
-            Product product = await _db.Product.Where(x => x.ProductId == productId).FirstOrDefaultAsync();
-            return _mapper.Map<ProductDto>(product);
+            Product product = _mapper.Map<ProductDto, Product>(model);
+            if (await _db.Product.AsNoTracking().FirstOrDefaultAsync(x => x.ProductId == model.ProductId) is null)
+            {
+                throw new NullReferenceException("Попытка обновить объект, которого нет в хранилище.");
+            }
+            _db.Product.Update(product);
+            await _db.SaveChangesAsync();
+            return _mapper.Map<Product, ProductDto>(product);
         }
     }
 }

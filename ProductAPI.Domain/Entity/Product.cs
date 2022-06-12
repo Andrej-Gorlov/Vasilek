@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProductAPI.Domain.Entity
 {
@@ -11,13 +6,10 @@ namespace ProductAPI.Domain.Entity
     {
         [Key]
         public int ProductId { get; set; }
-        [Required]
-        public string? Name { get; set; }
-        [Range(1, 100000)]
+        public string? Name { get; set; } = string.Empty;   
         public double Price { get; set; }
-        public string? Description { get; set; }
-        [Display(Name = "Category Name")]
-        public string? CategoryName { get; set; }
-        public string? ImageUrl { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public Category? Category { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

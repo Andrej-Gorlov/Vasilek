@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProductAPI.DAL.Interfaces
+﻿namespace ProductAPI.DAL.Interfaces
 {
     public interface IBaseRepository<T>
     {
-        Task<IEnumerable<T>> Get();
-        Task<T> GetById(int productId);
-        Task<T> CreateUpdate(T productDto);
-        Task<bool> Delete(int productId);
+        Task<IEnumerable<T>> GetAsync();
+        Task<T> CreateAsync(T model);
+        Task<bool> DeleteAsync(int id);
+        Task<T> UpdateAsync(T model);
     }
 }
