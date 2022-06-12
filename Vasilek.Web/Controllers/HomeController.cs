@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Vasilek.Web.Models;
 using Vasilek.Web.Models.ShoppingCartAPI;
 using Vasilek.Web.Models.VM;
+using Vasilek.Web.Services.Interfaces.IProductAPI;
 using Vasilek.Web.Services.IServices;
 
 namespace Vasilek.Web.Controllers
@@ -34,7 +35,7 @@ namespace Vasilek.Web.Controllers
                 list = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(response.Result));
             }
 
-            var listCategory =list.Select(x=>x.CategoryName).ToList().Distinct();
+            var listCategory =list.Select(x=>x.Category.CategoryName).ToList().Distinct();
 
             HomeVM listCategoryVM = new HomeVM()
             {
@@ -52,7 +53,7 @@ namespace Vasilek.Web.Controllers
             {
                 list = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(response.Result));
             }
-            return View(list.Where(x => x.CategoryName == category).ToList());
+            return View(list.Where(x => x.Category.CategoryName == category).ToList());
         }
 
 

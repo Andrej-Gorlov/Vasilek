@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Vasilek.Web;
 using Vasilek.Web.Services;
+using Vasilek.Web.Services.Implementations.ProductAPI;
+using Vasilek.Web.Services.Interfaces.IProductAPI;
 using Vasilek.Web.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);

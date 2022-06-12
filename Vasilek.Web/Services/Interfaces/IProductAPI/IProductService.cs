@@ -1,8 +1,8 @@
 ﻿using Vasilek.Web.Models;
 
-namespace Vasilek.Web.Services.IServices
+namespace Vasilek.Web.Services.Interfaces.IProductAPI
 {
-    public interface IProductService: IBaseService
+    public interface IProductService : IBaseService
     {
         Task<T> GetAllProductAsync<T>(string token);
         Task<T> GetProductByIdAsync<T>(int id, string token);

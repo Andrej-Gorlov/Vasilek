@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductAPI.Domain.Entity
 {
@@ -6,7 +7,6 @@ namespace ProductAPI.Domain.Entity
     {
         [Key]
         public int CategoryId { get; set; }
-        public int ProductId { get; set; }
         public string? CategoryName { get; set; } = string.Empty;
     }
 }

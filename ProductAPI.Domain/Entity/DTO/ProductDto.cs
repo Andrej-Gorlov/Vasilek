@@ -13,6 +13,8 @@ namespace ProductAPI.Domain.Entity.DTO
         public double Price { get; set; }
 
         public string Description { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Укажите id категории.")]
+        public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Укажите название категории.")]
         public CategoryDto? Category { get; set; }

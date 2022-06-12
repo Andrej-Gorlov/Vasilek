@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Vasilek.Web.Models;
 using Vasilek.Web.Models.CouponAPI;
 using Vasilek.Web.Models.ShoppingCartAPI;
+using Vasilek.Web.Services.Interfaces.IProductAPI;
 using Vasilek.Web.Services.IServices;
 
 namespace Vasilek.Web.Controllers

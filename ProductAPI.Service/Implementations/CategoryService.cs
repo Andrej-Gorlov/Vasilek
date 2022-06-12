@@ -59,7 +59,7 @@ namespace ProductAPI.Service.Implementations
         {
             var baseResponse = new BaseResponse<IEnumerable<CategoryDto>>();
             var categorys = await _categoryRepository.GetAsync();
-            if (categorys.Count() is 0)
+            if (categorys.Count() != 0)
             {
                 baseResponse.IsSuccess = true;
                 baseResponse.DisplayMessage = "Сущность [Category] пуста";

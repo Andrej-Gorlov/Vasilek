@@ -54,7 +54,7 @@ namespace ProductAPI.Service.Implementations
         {
             var baseResponse = new BaseResponse<IEnumerable<ProductDto>>();
             var products = await _productRepository.GetAsync();
-            if (products.Count() is 0)
+            if (products.Count() != 0)
             {
                 baseResponse.IsSuccess = true;
                 baseResponse.DisplayMessage = "Сущность [Product] пуста";

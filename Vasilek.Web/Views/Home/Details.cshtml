@@ -22,7 +22,7 @@
                             <div class="row pl-3">
 
                                 <div class="col-12">
-                                    <span class="badge badge-primary text-primary p-3 border fs-4">@Model.CategoryName</span>
+                                    <span class="badge badge-primary text-primary p-3 border fs-4">@Model.Category.CategoryName</span>
                                     <h3 class="text-primary"></h3>
 
                                     <p class="text-secondary">@Html.Raw(Model.Description) </p>
@@ -42,7 +42,7 @@
 
                 <div class="avd_div col-12 col-md-6 pb-1">
 
-                    <a asp-action="CategoryVM" asp-route-category="@Model.CategoryName" class="bucn_3_4r" style="height:50px"> Обратно к списку </a>
+                    <a asp-action="CategoryVM" asp-route-category="@Model.Category.CategoryName" class="bucn_3_4r" style="height:50px"> Обратно к списку </a>
                 
                 </div>
                 <div class="avd_div col-12 col-md-6 ">

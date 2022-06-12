@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductAPI.Domain.Entity.DTO
+namespace Vasilek.Web.Models
 {
-    public class CategoryDto
+    public class CategoryDtoBase
     {
         public int CategoryId { get; set; }
-
-        [Required(ErrorMessage = "Укажите название категории.")]
+        [Display(Name = "Названия")]
         public string? CategoryName { get; set; } = string.Empty;
     }
 }

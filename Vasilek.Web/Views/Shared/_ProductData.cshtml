@@ -1,7 +1,7 @@
 ﻿
 @model Vasilek.Web.Models.ProductDtoBase
 
-<div class="col-lg-4 col-md-6 pb-4 filter @Model.CategoryName">
+<div class="col-lg-4 col-md-6 pb-4 filter @Model.Category.CategoryName">
     <!-- Card-->
     <div class="card bg-white rounded shadow-sm" style="border: 1px solid #222;width:300px">
 
@@ -15,7 +15,7 @@
         <div class="card-body p-1 px-3 row ">
 
             <div class="col-6">
-                <span class="badge p-2 border w-100 text-dark" style="border-radius: 0px 15px; background-color: lavenderblush">@Model.CategoryName</span>
+                <span class="badge p-2 border w-100 text-dark" style="border-radius: 0px 15px; background-color: lavenderblush">@Model.Category.CategoryName</span>
             </div>
 
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Vasilek.Web.Models;
-using Vasilek.Web.Services.IServices;
+using Vasilek.Web.Services.Interfaces.IProductAPI;
 
 namespace Vasilek.Web.Controllers
 {
@@ -16,21 +16,20 @@ namespace Vasilek.Web.Controllers
         }
         public async Task <IActionResult> ProductIndex()
         {
-            List<ProductDtoBase>? list = new ();
+            List<ProductDtoBase>? products = new ();
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var respons = await _productService.GetAllProductAsync<ResponseDtoBase>(accessToken);
             if (respons!=null & respons.IsSuccess)
             {
-                list = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(respons.Result));
+                products = JsonConvert.DeserializeObject<List<ProductDtoBase>>(Convert.ToString(respons.Result));
             }
-            return View(list);
+            return View(products);
         }
+
         public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
-
-
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
