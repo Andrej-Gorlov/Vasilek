@@ -8,5 +8,6 @@ namespace ProductAPI.Domain.Entity.DTO
 
         [Required(ErrorMessage = "Укажите название категории.")]
         public string? CategoryName { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

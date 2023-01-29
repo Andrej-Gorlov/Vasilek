@@ -1,7 +1,5 @@
 ﻿using Vasilek.Web.Models;
 using Vasilek.Web.Services.IServices;
-
-using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http.Headers;

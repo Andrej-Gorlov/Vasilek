@@ -66,18 +66,38 @@ namespace Vasilek.Services.ShoppingCart.Migrations
                     b.ToTable("CartHeaders");
                 });
 
+            modelBuilder.Entity("Vasilek.Services.ShoppingCart.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categorys");
+                });
+
             modelBuilder.Entity("Vasilek.Services.ShoppingCart.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -88,6 +108,8 @@ namespace Vasilek.Services.ShoppingCart.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -109,6 +131,17 @@ namespace Vasilek.Services.ShoppingCart.Migrations
                     b.Navigation("CartHeader");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Vasilek.Services.ShoppingCart.Models.Product", b =>
+                {
+                    b.HasOne("Vasilek.Services.ShoppingCart.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

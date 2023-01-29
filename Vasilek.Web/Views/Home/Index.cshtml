@@ -1,18 +1,52 @@
-﻿@model Vasilek.Web.Models.VM.HomeVM
+﻿@model List<CategoryDtoBase>
 
+<div class="mx-auto w-75"> 
 
-<div class="container pt-5">
+    <div id="carouselExampleDark" class="carousel carousel-blue slide carousel-fade" data-bs-ride="carousel">
+     
+        <div class="carousel-indicators">
 
-    <div class="text-center">
+            @{
+               int j = 0; int numberSlider = 0;
+            }
+            @foreach (var item in Model)
+            {
+                j++;
+                var active = j == 1 ? "active" : "";
+                var current = j == 1 ? true : false;
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@numberSlider" class="@active" aria-current="@current" aria-label="Slide @numberSlider+1"></button>
+                numberSlider++;
+            }
 
-        @foreach (var item in Model.ListCategory)
+        </div>
+
+     <div class="carousel-inner">
+
+        @{ int i = 0; }
+        @foreach (var item in Model)
         {
-            <div class="avd_div pb-5">
-                <a asp-action="CategoryVM" asp-route-category="@item" class="bucn_3_4r">@item</a>
+            i++;
+            var active = i == 1 ? "active" : "";
+            <div class="carousel-item @active" data-bs-interval="5000">
+                <a asp-action="CategoryVM" asp-route-category="@item.CategoryName">
+                    <img src="@item.ImageUrl" alt="Image @item" class="d-block w-100" >
+                    
+                    <div class="carousel-caption d-none d-md-block ">
+                         <h3>@item.CategoryName</h3>
+                    </div>
+                </a>
             </div>
         }
 
     </div>
-
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+    </div>
 </div>
 

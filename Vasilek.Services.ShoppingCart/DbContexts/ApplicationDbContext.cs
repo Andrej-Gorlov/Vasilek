@@ -10,6 +10,7 @@ namespace Vasilek.Services.ShoppingCart.DbContexts
 
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categorys { get; set; }
         public DbSet<CartHeader> CartHeaders { get; set; }
         public DbSet<CartDetails> CartDetails { get; set; }
     }

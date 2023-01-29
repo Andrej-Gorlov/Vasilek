@@ -10,7 +10,7 @@ namespace Vasilek.Web.Services.Implementations.ProductAPI
         {
             _clientFactory = httpClient;
         }
-        public async Task<T> CreateProductAsync<T>(CategoryDtoBase categoryDto, string token)
+        public async Task<T> CreateCategoryAsync<T>(CategoryDtoBase categoryDto, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
@@ -20,7 +20,7 @@ namespace Vasilek.Web.Services.Implementations.ProductAPI
                 AccessToken = token
             });
         }
-        public async Task<T> DeleteProductAsync<T>(int id, string token)
+        public async Task<T> DeleteCategoryAsync<T>(int id, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
@@ -29,7 +29,7 @@ namespace Vasilek.Web.Services.Implementations.ProductAPI
                 AccessToken = token
             });
         }
-        public async Task<T> GetAllProductAsync<T>(string token)
+        public async Task<T> GetAllCategoryAsync<T>(string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
@@ -38,7 +38,7 @@ namespace Vasilek.Web.Services.Implementations.ProductAPI
                 AccessToken = token
             });
         }
-        public async Task<T> GetProductByIdAsync<T>(int id, string token)
+        public async Task<T> GetCategoryByIdAsync<T>(int id, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
@@ -47,7 +47,7 @@ namespace Vasilek.Web.Services.Implementations.ProductAPI
                 AccessToken = token
             });
         }
-        public async Task<T> UpdateProductAsync<T>(CategoryDtoBase categoryDto, string token)
+        public async Task<T> UpdateCategoryAsync<T>(CategoryDtoBase categoryDto, string token)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {

@@ -40,7 +40,9 @@ namespace Vasilek.Web.Controllers
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.CreateProductAsync<ResponseDtoBase>(model, accessToken);
                 if (respons != null & respons.IsSuccess)
+                {
                     return RedirectToAction(nameof(ProductIndex));
+                }
             }
             return View(model);
         }
@@ -66,7 +68,9 @@ namespace Vasilek.Web.Controllers
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.UpdateProductAsync<ResponseDtoBase>(model, accessToken);
                 if (respons != null & respons.IsSuccess)
+                {
                     return RedirectToAction(nameof(ProductIndex));
+                }
             }
             return View(model);
         }
@@ -92,7 +96,9 @@ namespace Vasilek.Web.Controllers
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var respons = await _productService.DeleteProductAsync<ResponseDtoBase>(model.ProductId, accessToken);
                 if (respons.IsSuccess)
+                {
                     return RedirectToAction(nameof(ProductIndex));
+                }
             }
             return View(model);
         }

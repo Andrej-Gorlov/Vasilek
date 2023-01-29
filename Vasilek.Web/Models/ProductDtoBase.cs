@@ -15,10 +15,10 @@ namespace Vasilek.Web.Models
         public double Price { get; set; }
         [Display(Name = "Описание")]
         public string? Description { get; set; }
-        [Display(Name = "Категория")]
         public int CategoryId { get; set; }
+        [Display(Name = "Категория")]
         public CategoryDtoBase? Category { get; set; }
-        [Display(Name = "Изображение")]
+        [Display(Name = "Url Изображения")]
         public string? ImageUrl { get; set; }
         [Range(1, 100)]
         public int Count { get; set; }

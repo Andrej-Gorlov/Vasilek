@@ -190,7 +190,8 @@ namespace Vasilek.Services.ProductAPI.Controllers
             {
                 return NotFound(category);
             }
-            return NoContent();
+            //return NoContent();
+            return Ok(category);
         }
     }
 }

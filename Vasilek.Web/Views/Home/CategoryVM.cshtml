@@ -1,38 +1,138 @@
-﻿@model IEnumerable<ProductDtoBase>
+﻿@model Vasilek.Web.Models.VM.ProductDtoVM
 
-    <form>
-
+    <form method="post" asp-action="Details">
+     
         <div class="container row">
+            @foreach (var product in Model.Products)
+        {
+            <input asp-for="Model.Product.ProductId = @product.ProductId" hidden />
 
-            @foreach (var product in Model)
-            {
-                <div class="col-4 ">
+            var multiCE = $"#multiCollapseExample{product.ProductId}";
+            var multiCollapseExample =$"multiCollapseExample{product.ProductId}";
+            var eModal = $"#exampleModal{product.ProductId}";
+            var exampleModal = $"exampleModal{product.ProductId}";
+            <div class="col-4 ">
                     <div class="p-0 my-3 border">
                         <div class="card" >
                             <img src="@product.ImageUrl" class="card-img-top">
                             <div class="card-body">
                                 <h3 class="text-center card-title text-primary">@product.Name</h3>
-                                <span class="badge badge-light mb-2 ">@product.Category.CategoryName</span>
-                                <p class="text-center card-text">@Html.Raw(product.Description)</p>
+                                <span class="badge badge-light">@product.Category.CategoryName</span>
+                                
+                                <p>
+                                   <button class="accordion-button collapsed text-center d-block"  type="button" data-bs-toggle="collapse" href="@multiCE" aria-expanded="false" aria-controls="@multiCollapseExample">
+                                       Описание
+                                   </button>
+                                </p>
+
+                                <div class="row">
+                                   <div class="col">
+                                      <div class="collapse multi-collapse" id="@multiCollapseExample">
+                                         <div class="accordion-body">
+                                         @Html.Raw(product.Description)
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                @*<p class="text-center card-text">@Html.Raw(product.Description)</p>*@
                                
                                 <div class="row">
                                     <div class="text-center">
                                         <span style="font-size:23px;">@string.Format("{0:c}", product.Price)</span>
                                     </div>
+
                                     <div class="avd_div">
-                                        <a asp-action="Details" asp-route-productId="@product.ProductId"
-                                           class="bucn_3_4r"> Подробности </a>
+                                        <button type="button" class="bucn_3_4r" data-bs-toggle="modal" data-bs-target="@eModal">
+                                            Подробности
+                                        </button>
                                     </div>
 
+                                @*     <a asp-action="Details" asp-route-productId="@product.ProductId"> Подробности </a>
+
+                                    <div class="avd_div">
+                                        <button type="button" class="bucn_3_4r" data-bs-toggle="modal" data-bs-target="@eModal">
+                                            Подробности
+                                        </button>
+                                    </div>*@
+
                                 </div>
-                                
+  
                             </div>
                         </div>
                     </div>
+
+            </div>
+
+            @*      model              *@
+            
+                <div class="modal fade" id="@exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog border-0">
+                       <div class="modal-content border-0">
+
+                           <div class="modal-header bg-dark text-light border-0">
+
+                                <div class="p-3">
+                                    <h1 class="text-white">@product.Name</h1>
+                                </div>
+                                <div class="">
+                                    <h1 class="text-white"> @string.Format("{0:c}", product.Price)</h1>
+                                </div>
+                                <div class="text-end">
+                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                           </div>
+
+                           <div class="modal-body">
+                                  
+                                    <div class="container rounded p-2">
+                                        <div class="text-center">
+                                            <h5 class="text-primary">@product.Category.CategoryName</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-4 p-1">
+                                                <img src="@product.ImageUrl" style="border-0" width="100%" class="rounded" />
+                                            </div>
+                                            <div class="col-12 col-lg-8">
+                                                <div class="row pl-3">
+
+                                                    <div class="col-12">
+                                                        <h3 class="text-primary"></h3>
+                                                        <p class="text-secondary">@Html.Raw(product.Description) </p>
+                                                    </div>
+                                               
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row px-4">
+                                             <input asp-for="@(product.Count)" class="form-control p-3" />
+                                             <span asp-validation-for="@(product.Count)" class="text-danger fs-4"></span>
+                                        </div>
+
+                                    </div>
+                                        
+                           </div>
+
+                           <div class="modal-footer bg-dark border-0 d-block">
+                               <a asp-action="Details" asp-all-route-data='new Dictionary<string,string> { { "count", $"{@product.Count}" }, { "productId", $"{@product.ProductId}" } }' > Добавить в корзину </a>
+                               @*<button type="submit" class="bucn_3_4r" style="height:50px">Добавить в корзину</button>*@
+                           </div>
+                        
+                       </div>
+                    </div>
                 </div>
+
+
+
+               @* </form>*@
             }
 
         </div>
     </form>
 
-
+@section Scripts{ 
+    <partial name="_ValidationScriptsPartial" />
+}
